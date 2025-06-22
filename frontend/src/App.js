@@ -1,48 +1,22 @@
-import React, { useState, useEffect } from "react";
-import Routes from "./routes";
-import "react-toastify/dist/ReactToastify.css";
+import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
 
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import { ptBR } from "@material-ui/core/locale";
-
-const App = () => {
-	const [locale, setLocale] = useState();
-
-  const theme = createTheme(
-    {
-      scrollbarStyles: {
-        '&::-webkit-scrollbar': {
-          width: '8px',
-          height: '8px',
-        },
-        '&::-webkit-scrollbar-thumb': {
-          boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',
-          backgroundColor: '#e8e8e8',
-        },
-      },
-      palette: {
-        primary: { main: '#29A71A' },
-        danger: { main: '#1172b8' },
-      },
-    },
-    locale
-  );
-
-	useEffect(() => {
-		const i18nlocale = localStorage.getItem("i18nextLng");
-		const browserLocale =
-			i18nlocale.substring(0, 2) + i18nlocale.substring(3, 5);
-
-		if (browserLocale === "ptBR") {
-			setLocale(ptBR);
-		}
-	}, []);
-
-	return (
-		<ThemeProvider theme={theme}>
-			<Routes />
-		</ThemeProvider>
-	);
-};
+const App = () => (
+  <BrowserRouter>
+    <AuthProvider>
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
+        <PrivateRoute exact path="/" component={Dashboard} />
+      </Switch>
+    </AuthProvider>
+  </BrowserRouter>
+);
 
 export default App;
