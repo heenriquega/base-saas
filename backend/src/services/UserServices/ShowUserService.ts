@@ -1,6 +1,5 @@
 import User from "../../models/User";
 import AppError from "../../errors/AppError";
-import Queue from "../../models/Queue";
 import Company from "../../models/Company";
 
 const ShowUserService = async (id: string | number): Promise<User> => {
@@ -14,10 +13,7 @@ const ShowUserService = async (id: string | number): Promise<User> => {
       "super",
       "tokenVersion"
     ],
-    include: [
-      { model: Queue, as: "queues", attributes: ["id", "name", "color"] },
-      { model: Company, as: "company", attributes: ["id", "name"] }
-    ]
+    include: [{ model: Company, as: "company", attributes: ["id", "name"] }]
   });
 
   if (!user) {
