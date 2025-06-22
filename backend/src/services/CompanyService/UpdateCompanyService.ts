@@ -8,7 +8,6 @@ interface CompanyData {
   phone?: string;
   email?: string;
   status?: boolean;
-  planId?: number;
   campaignsEnabled?: boolean;
   dueDate?: string;
   recurrence?: string;
@@ -23,7 +22,6 @@ const UpdateCompanyService = async (
     phone,
     email,
     status,
-    planId,
     campaignsEnabled,
     dueDate,
     recurrence
@@ -38,7 +36,6 @@ const UpdateCompanyService = async (
     phone,
     email,
     status,
-    planId,
     dueDate,
     recurrence
   });
