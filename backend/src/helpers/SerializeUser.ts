@@ -1,7 +1,5 @@
-import Queue from "../models/Queue";
 import Company from "../models/Company";
 import User from "../models/User";
-import Setting from "../models/Setting";
 
 interface SerializedUser {
   id: number;
@@ -11,7 +9,6 @@ interface SerializedUser {
   companyId: number;
   company: Company | null;
   super: boolean;
-  queues: Queue[];
 }
 
 export const SerializeUser = async (user: User): Promise<SerializedUser> => {
@@ -22,7 +19,6 @@ export const SerializeUser = async (user: User): Promise<SerializedUser> => {
     profile: user.profile,
     companyId: user.companyId,
     company: user.company,
-    super: user.super,
-    queues: user.queues
+    super: user.super
   };
 };

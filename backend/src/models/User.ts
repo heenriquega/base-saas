@@ -10,17 +10,11 @@ import {
   PrimaryKey,
   AutoIncrement,
   Default,
-  HasMany,
-  BelongsToMany,
   ForeignKey,
   BelongsTo
 } from "sequelize-typescript";
 import { hash, compare } from "bcryptjs";
-import Ticket from "./Ticket";
-import Queue from "./Queue";
-import UserQueue from "./UserQueue";
 import Company from "./Company";
-import QuickMessage from "./QuickMessage";
 
 @Table
 class User extends Model<User> {
@@ -67,20 +61,6 @@ class User extends Model<User> {
 
   @BelongsTo(() => Company)
   company: Company;
-
-  @HasMany(() => Ticket)
-  tickets: Ticket[];
-
-  @BelongsToMany(() => Queue, () => UserQueue)
-  queues: Queue[];
-
-  @HasMany(() => QuickMessage, {
-    onUpdate: "CASCADE",
-    onDelete: "CASCADE",
-    hooks: true
-  })
-  quickMessages: QuickMessage[];
-
   @BeforeUpdate
   @BeforeCreate
   static hashPassword = async (instance: User): Promise<void> => {
