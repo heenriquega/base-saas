@@ -11,7 +11,6 @@ interface UserData {
   name?: string;
   profile?: string;
   companyId?: number;
-  queueIds?: number[];
 }
 
 interface Request {
@@ -49,7 +48,7 @@ const UpdateUserService = async ({
     password: Yup.string()
   });
 
-  const { email, password, profile, name, queueIds = [] } = userData;
+  const { email, password, profile, name } = userData;
 
   try {
     await schema.validate({ email, password, profile, name });
@@ -64,8 +63,6 @@ const UpdateUserService = async ({
     name
   });
 
-  await user.$set("queues", queueIds);
-
   await user.reload();
 
   const company = await Company.findByPk(user.companyId);
@@ -76,8 +73,7 @@ const UpdateUserService = async ({
     email: user.email,
     profile: user.profile,
     companyId: user.companyId,
-    company,
-    queues: user.queues
+    company
   };
 
   return serializedUser;

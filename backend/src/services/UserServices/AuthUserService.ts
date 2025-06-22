@@ -5,7 +5,6 @@ import {
   createRefreshToken
 } from "../../helpers/CreateTokens";
 import { SerializeUser } from "../../helpers/SerializeUser";
-import Queue from "../../models/Queue";
 import Company from "../../models/Company";
 import Setting from "../../models/Setting";
 
@@ -14,7 +13,6 @@ interface SerializedUser {
   name: string;
   email: string;
   profile: string;
-  queues: Queue[];
   companyId: number;
 }
 
@@ -35,7 +33,7 @@ const AuthUserService = async ({
 }: Request): Promise<Response> => {
   const user = await User.findOne({
     where: { email },
-    include: ["queues", { model: Company, include: [{ model: Setting }] }]
+    include: [{ model: Company, include: [{ model: Setting }] }]
   });
 
   if (!user) {
