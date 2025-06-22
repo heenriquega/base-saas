@@ -10,7 +10,6 @@ interface CompanyData {
   email?: string;
   password?: string;
   status?: boolean;
-  planId?: number;
   campaignsEnabled?: boolean;
   dueDate?: string;
   recurrence?: string;
@@ -24,7 +23,6 @@ const CreateCompanyService = async (
     phone,
     email,
     status,
-    planId,
     password,
     campaignsEnabled,
     dueDate,
@@ -62,7 +60,6 @@ const CreateCompanyService = async (
     phone,
     email,
     status,
-    planId,
     dueDate,
     recurrence
   });

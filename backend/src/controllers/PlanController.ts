@@ -1,6 +1,5 @@
 import * as Yup from "yup";
 import { Request, Response } from "express";
-// import { getIO } from "../libs/socket";
 import AppError from "../errors/AppError";
 import Plan from "../models/Plan";
 
@@ -66,12 +65,6 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
 
   const plan = await CreatePlanService(newPlan);
 
-  // const io = getIO();
-  // io.emit("plan", {
-  //   action: "create",
-  //   plan
-  // });
-
   return res.status(200).json(plan);
 };
 
@@ -110,12 +103,6 @@ export const update = async (
     value
   });
 
-  // const io = getIO();
-  // io.emit("plan", {
-  //   action: "update",
-  //   plan
-  // });
-
   return res.status(200).json(plan);
 };
 
@@ -125,7 +112,7 @@ export const remove = async (
 ): Promise<Response> => {
   const { id } = req.params;
 
-  const plan = await DeletePlanService(id);
+  await DeletePlanService(id);
 
-  return res.status(200).json(plan);
+  return res.status(200).json({});
 };
